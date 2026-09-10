@@ -1,0 +1,119 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Linker files
+*.ilk
+
+# Debugger Files
+*.pdb
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# debug information files
+*.dwo
+
+# CMake build directory
+build/
+cmake-build-*/
+_codeql_build_dir/
+_codeql_detected_source_root
+
+# CMake preset overrides that are specific to this machine
+CMakeUserPresets.json
+
+# VS Code: keep shared config, ignore per-machine state
+.vscode/*
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Visual Studio local state (CMake generates projects inside build/)
+.vs/
+*.suo
+*.user
+
+# GLFW: keep library sources, headers, CMake support and licenses.
+# These upstream extras are disabled by the project's CMake configuration.
+/vendor/glfw/docs/
+/vendor/glfw/examples/
+/vendor/glfw/tests/
+/vendor/glfw/deps/*
+!/vendor/glfw/deps/wayland/
+!/vendor/glfw/deps/mingw/
+/vendor/glfw/Build-glfw.lua
+/vendor/glfw/GLFW.vcxproj*
+/vendor/glfw/.appveyor.yml
+/vendor/glfw/.editorconfig
+/vendor/glfw/.mailmap
+
+# GLM is used through its headers, not its standalone library/module build.
+# Keep every header, inline implementation and copying.txt.
+/vendor/glm/glm/CMakeLists.txt
+/vendor/glm/glm/glm.cppm
+/vendor/glm/glm/detail/glm.cpp
+
+# Upstream development metadata, if dependency source archives include it.
+/vendor/**/.git/
+/vendor/**/.github/
+/vendor/**/.gitlab/
+
+# Local roadmap and AI assistant instructions, settings and conversation state.
+# Scope these to recognizable names; regular source and project docs stay visible.
+/PLAN.md
+[Aa][Gg][Ee][Nn][Tt][Ss]*.[Mm][Dd]
+[Cc][Ll][Aa][Uu][Dd][Ee]*.[Mm][Dd]
+[Cc][Oo][Dd][Ee][Xx]*.[Mm][Dd]
+[Gg][Pp][Tt]*.[Mm][Dd]
+[Cc][Hh][Aa][Tt][Gg][Pp][Tt]*.[Mm][Dd]
+[Gg][Ee][Mm][Ii][Nn][Ii]*.[Mm][Dd]
+.agents/
+.claude/
+.claude*.json
+.codex/
+.gpt/
+.chatgpt/
+.gemini/
+.mcp.json
+.mcp.local.json
+.cursor/
+.cursorrules
+.cursorignore
+.aider*
+.continue/
+.clinerules
+.roo/
+.roorules*
+.windsurf/
+.windsurfrules
+.github/copilot-instructions.md
+.github/instructions/
+.github/prompts/
+.github/agents/
