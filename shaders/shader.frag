@@ -1,8 +1,11 @@
 #version 460
 
+in vec3 Normal;
+
 out vec4 FragColor;
 
 void main()
 {
-	FragColor = vec4(vec3(0.8f), 1.0f);
+	vec3 outColor = normalize(Normal) * 0.5 + 0.5;
+	FragColor = vec4(outColor, 1.0f);
 }
