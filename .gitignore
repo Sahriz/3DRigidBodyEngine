@@ -85,9 +85,11 @@ CMakeUserPresets.json
 /vendor/**/.github/
 /vendor/**/.gitlab/
 
-# Local roadmap and AI assistant instructions, settings and conversation state.
-# Scope these to recognizable names; regular source and project docs stay visible.
+# Local roadmap and personal HTML documents.
 /PLAN.md
+*.[Hh][Tt][Mm][Ll]
+
+# AI assistant instructions, settings and conversation state.
 [Aa][Gg][Ee][Nn][Tt][Ss]*.[Mm][Dd]
 [Cc][Ll][Aa][Uu][Dd][Ee]*.[Mm][Dd]
 [Cc][Oo][Dd][Ee][Xx]*.[Mm][Dd]
