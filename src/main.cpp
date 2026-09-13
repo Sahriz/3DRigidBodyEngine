@@ -11,7 +11,14 @@
 #include <iostream>
 #include <vector>
 
+#include "RigidBodyEngine/World.hpp"
+
+
+
+rbe::World world(glm::vec3(0.0f, -9.82f, 0.0f));
+
 Camera camera;
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
