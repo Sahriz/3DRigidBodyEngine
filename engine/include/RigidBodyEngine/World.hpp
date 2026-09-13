@@ -7,13 +7,17 @@
 #include "Body.hpp"
 #include "Joint.hpp"
 #include "Arbiter.hpp"
+#include "BodyID.hpp"
 
 namespace rbe {
+
+	
+
 	class World {
 	public:
-		World(glm::vec3 grav) : gravity(grav){}
+		World(glm::vec3 grav) : gravity(grav) { index_amount.index = 0; }
 
-		void Add(Body* body);
+		BodyID Add(Body* body);
 
 		void Clear();
 
@@ -21,5 +25,6 @@ namespace rbe {
 	private:
 		std::vector<Body*> bodies;
 		glm::vec3 gravity;
+		rbe::BodyID index_amount;
 	};
 }

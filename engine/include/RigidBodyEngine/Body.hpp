@@ -10,6 +10,7 @@ namespace rbe {
 			position	= glm::vec3(0.0f);
 			velocity	= glm::vec3(0.0f);
 			mass		= 1.0f;
+			invMass = 1.0f / mass;
 			force		= glm::vec3(0.0f);
 		}
 		
@@ -18,6 +19,7 @@ namespace rbe {
 			position	= pos;
 			velocity	= glm::vec3(0.0f);
 			mass		= m;
+			invMass = 1.0f / mass;
 			force		= glm::vec3(0.0f);
 		}
 		
@@ -26,6 +28,7 @@ namespace rbe {
 			position	= pos;
 			velocity	= v;
 			mass		= m;
+			invMass = 1.0f / mass;
 			force		= glm::vec3(0.0f);
 		}
 
@@ -39,6 +42,7 @@ namespace rbe {
 		glm::vec3 position;
 		glm::vec3 velocity;
 		float mass;
+		float invMass;
 		glm::vec3 force;
 	private:
 		

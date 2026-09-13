@@ -1,7 +1,7 @@
 #include "SimulatedObject.hpp"
 
-SimulatedObject::SimulatedObject(MeshID id, Transform initialTransform)
-    : mesh{id}, transform{initialTransform}
+SimulatedObject::SimulatedObject(MeshID mID, rbe::BodyID bID, Transform initialTransform)
+    : mesh{mID}, body{}, transform{initialTransform}
 {
 }
 

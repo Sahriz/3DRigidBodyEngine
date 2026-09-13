@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "RigidBodyEngine/World.hpp"
+#include "RigidBodyEngine/Body.hpp"
 
 
 
@@ -95,7 +96,7 @@ int main()
         Renderer renderer;
         renderer.init();
 
-        std::vector<SimulatedObject> meshes;
+        std::vector<SimulatedObject> SimedObjects;
 
         //set screen dimensions
         glViewport(0, 0, Width, Height);
@@ -110,11 +111,12 @@ int main()
         transform.position = glm::vec3(0.0f, 0.0f, 1.0f);
 
         MeshID cube = renderer.createMesh(createCubeMeshData());
+        rbe::BodyID box  = world.Add(new rbe::Body());
 
-        meshes.emplace_back(cube, transform);
+        SimedObjects.emplace_back(cube, box, transform);
         transform.position = glm::vec3(2.0f, 1.0f, 0.0f);
         transform.rotation = glm::qua(1.0f, 0.5f, 0.0f, 0.0f);
-        meshes.emplace_back(cube, transform);
+        SimedObjects.emplace_back(cube, box, transform);
         //renderloop
         while (!glfwWindowShouldClose(window)) {
 
@@ -122,11 +124,11 @@ int main()
             time = glfwGetTime();
             deltaTime = time - lastTime;
             processInput(window, deltaTime);
-
+            world.Step(deltaTime);
             renderer.beginFrame(camera, Width, Height);
             //rendering commands here
 
-            for (const SimulatedObject& object : meshes) {
+            for (const SimulatedObject& object : SimedObjects) {
                 renderer.draw(
                     object.getMesh(),
                     modelMatrix(object.getTransform())
