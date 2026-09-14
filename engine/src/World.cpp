@@ -2,9 +2,9 @@
 
 
 rbe::BodyID rbe::World::Add(Body* body) {
+	BodyID id{ std::size(bodies) };
 	bodies.push_back(body);
-	index_amount.index++;
-	return index_amount;
+	return id;
 }
 
 void rbe::World::Clear() {
@@ -29,5 +29,12 @@ void rbe::World::Step(float dt) {
 		body->position += dt * body->velocity;
 		body->force = glm::vec3(0.0f);
 	}
-	std::cout << "Position at: x = " << bodies[0]->position.x << " | y = " << bodies[0]->position.y << " | z = " << bodies[0]->position.z << std::endl;
+	//std::cout << "Position at: x = " << bodies[0]->position.x << " | y = " << bodies[0]->position.y << " | z = " << bodies[0]->position.z << std::endl;
+}
+
+rbe::Body* rbe::World::getBody(BodyID id) {
+	if (id.index < 0 || id.index >= std::size(bodies)) {
+		return nullptr;
+	}
+	return bodies[id.index];
 }

@@ -22,6 +22,8 @@ namespace rbe {
 		void Clear();
 
 		void Step(float dt);
+
+		Body* getBody(BodyID id);
 	private:
 		std::vector<Body*> bodies;
 		glm::vec3 gravity;

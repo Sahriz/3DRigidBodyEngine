@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/vec3.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 namespace rbe {
 	class Body {
@@ -8,27 +9,33 @@ namespace rbe {
 		Body() 
 		{
 			position	= glm::vec3(0.0f);
+			rotation	= glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+			scale		= glm::vec3(1.0f);
 			velocity	= glm::vec3(0.0f);
 			mass		= 1.0f;
-			invMass = 1.0f / mass;
+			invMass		= 1.0f / mass;
 			force		= glm::vec3(0.0f);
 		}
 		
 		Body(glm::vec3 pos, float m) 
 		{
 			position	= pos;
+			rotation	= glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+			scale		= glm::vec3(1.0f);
 			velocity	= glm::vec3(0.0f);
 			mass		= m;
-			invMass = 1.0f / mass;
+			invMass		= 1.0f / mass;
 			force		= glm::vec3(0.0f);
 		}
 		
-		Body(glm::vec3 pos, glm::vec3 v, float m) 
+		Body(glm::vec3 pos, glm::quat r, glm::vec3 s, float m) 
 		{
 			position	= pos;
-			velocity	= v;
+			rotation = r;
+			scale		= s;
+			velocity	= glm::vec3(0.0f);;
 			mass		= m;
-			invMass = 1.0f / mass;
+			invMass		= 1.0f / mass;
 			force		= glm::vec3(0.0f);
 		}
 
@@ -40,6 +47,8 @@ namespace rbe {
 
 
 		glm::vec3 position;
+		glm::quat rotation;
+		glm::vec3 scale;
 		glm::vec3 velocity;
 		float mass;
 		float invMass;

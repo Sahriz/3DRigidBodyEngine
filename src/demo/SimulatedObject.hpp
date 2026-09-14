@@ -9,7 +9,10 @@ public:
     SimulatedObject(MeshID mID, rbe::BodyID bID, Transform initialTransform);
 
     MeshID getMesh() const;
+	rbe::BodyID getBody() const;
     Transform getTransform() const;
+
+	void setTransform(const Transform& newTransform);
 
 private:
     MeshID mesh;

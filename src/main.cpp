@@ -110,13 +110,13 @@ int main()
         Transform transform;
         transform.position = glm::vec3(0.0f, 0.0f, 1.0f);
 
-        MeshID cube = renderer.createMesh(createCubeMeshData());
-        rbe::BodyID box  = world.Add(new rbe::Body());
+        MeshID cube1 = renderer.createMesh(createCubeMeshData());
+        MeshID cube2 = renderer.createMesh(createCubeMeshData());
+        rbe::BodyID box1  = world.Add(new rbe::Body(glm::vec3(1.5f), glm::angleAxis(45.0f, glm::vec3(0.0f, 1.0f, 0.0f)), glm::vec3(1.0f), 1.0f));
+        rbe::BodyID box2 = world.Add(new rbe::Body(glm::vec3(0.0f), 1.0f));
 
-        SimedObjects.emplace_back(cube, box, transform);
-        transform.position = glm::vec3(2.0f, 1.0f, 0.0f);
-        transform.rotation = glm::qua(1.0f, 0.5f, 0.0f, 0.0f);
-        SimedObjects.emplace_back(cube, box, transform);
+        SimedObjects.emplace_back(cube1, box1, transform);
+        SimedObjects.emplace_back(cube2, box2, transform);
         //renderloop
         while (!glfwWindowShouldClose(window)) {
 
@@ -128,7 +128,20 @@ int main()
             renderer.beginFrame(camera, Width, Height);
             //rendering commands here
 
-            for (const SimulatedObject& object : SimedObjects) {
+            for (SimulatedObject& object : SimedObjects) {
+				rbe::BodyID body = object.getBody();
+				rbe::Body* bodyPtr = world.getBody(body);
+                if(bodyPtr) {
+                    Transform newTransform;
+					newTransform.position   = bodyPtr->position;
+					newTransform.rotation   = bodyPtr->rotation;
+					newTransform.scale      = bodyPtr->scale;
+                    object.setTransform(newTransform);
+				}
+                else {
+					std::cout << "Body not found in world!" << std::endl;
+                    continue;
+                }
                 renderer.draw(
                     object.getMesh(),
                     modelMatrix(object.getTransform())
