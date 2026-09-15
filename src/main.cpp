@@ -13,6 +13,7 @@
 
 #include "RigidBodyEngine/World.hpp"
 #include "RigidBodyEngine/Body.hpp"
+#include "RigidBodyEngine/BodyType.hpp"
 
 
 
@@ -103,28 +104,36 @@ int main()
         glEnable(GL_DEPTH_TEST);
         glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-        float time = glfwGetTime();
-        float lastTime = time;
-        float deltaTime = 0.0;
+		constexpr double fixedD = 1.0 / 60.0;
+		double accumulator = 0.0;
+		double lastTime = glfwGetTime();
 
         Transform transform;
         transform.position = glm::vec3(0.0f, 0.0f, 1.0f);
 
         MeshID cube1 = renderer.createMesh(createCubeMeshData());
         MeshID cube2 = renderer.createMesh(createCubeMeshData());
-        rbe::BodyID box1  = world.Add(new rbe::Body(glm::vec3(1.5f), glm::angleAxis(45.0f, glm::vec3(0.0f, 1.0f, 0.0f)), glm::vec3(1.0f), 1.0f));
-        rbe::BodyID box2 = world.Add(new rbe::Body(glm::vec3(0.0f), 1.0f));
+        rbe::BodyID box1  = world.Add(new rbe::Body(rbe::BodyType::DYNAMIC, glm::vec3(0.0f, 1.0f, 0.0f), glm::angleAxis(45.0f, glm::vec3(0.0f, 1.0f, 0.0f)), glm::vec3(1.0f), 1.0f));
+        rbe::BodyID box2 = world.Add(new rbe::Body(rbe::BodyType::STATIC, glm::vec3(0.0f, -2.0f, 0.0f), glm::angleAxis(0.0f, glm::vec3(0.0f)),glm::vec3(5.0f, 0.05f, 5.0f), 1.0f));
 
         SimedObjects.emplace_back(cube1, box1, transform);
         SimedObjects.emplace_back(cube2, box2, transform);
         //renderloop
         while (!glfwWindowShouldClose(window)) {
+			const double now = glfwGetTime();
+			double frameDt = now - lastTime;
+			lastTime = now;
+            if(frameDt > 0.25)
+				frameDt = 0.25;
 
-            lastTime = time;
-            time = glfwGetTime();
-            deltaTime = time - lastTime;
-            processInput(window, deltaTime);
-            world.Step(deltaTime);
+        
+            processInput(window, static_cast<float>(frameDt));
+			accumulator += frameDt;
+            while (accumulator >= fixedD) {
+                world.Step(fixedD);
+				accumulator -= fixedD;
+            }
+           
             renderer.beginFrame(camera, Width, Height);
             //rendering commands here
 

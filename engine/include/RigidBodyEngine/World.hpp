@@ -8,6 +8,7 @@
 #include "Joint.hpp"
 #include "Arbiter.hpp"
 #include "BodyID.hpp"
+#include "BodyType.hpp"
 
 namespace rbe {
 

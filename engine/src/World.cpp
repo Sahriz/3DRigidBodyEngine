@@ -12,10 +12,12 @@ void rbe::World::Clear() {
 }
 
 void rbe::World::Step(float dt) {
-
+	
 
 	for (size_t i = 0; i < std::size(bodies); i++) {
 		Body* body = bodies[i];
+		if(body->type == BodyType::STATIC)
+			continue;
 
 		if (body->mass == 0.0f) 
 			continue;
