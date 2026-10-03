@@ -108,16 +108,19 @@ int main()
 		double accumulator = 0.0;
 		double lastTime = glfwGetTime();
 
+
+        //Object data creation
         Transform transform;
         transform.position = glm::vec3(0.0f, 0.0f, 1.0f);
 
         MeshID cube1 = renderer.createMesh(createCubeMeshData());
         MeshID cube2 = renderer.createMesh(createCubeMeshData());
-        rbe::BodyID box1  = world.Add(new rbe::Body(rbe::BodyType::DYNAMIC, glm::vec3(0.0f, 1.0f, 0.0f), glm::angleAxis(45.0f, glm::vec3(0.0f, 1.0f, 0.0f)), glm::vec3(1.0f), 1.0f));
+        rbe::BodyID box1  = world.Add(new rbe::Body(rbe::BodyType::DYNAMIC, glm::vec3(0.0f, 1.0f, 0.0f), glm::angleAxis(glm::radians(45.0f), glm::vec3(1.0f, 0.0f, 0.0f)), glm::vec3(1.0f), 1.0f));
         rbe::BodyID box2 = world.Add(new rbe::Body(rbe::BodyType::STATIC, glm::vec3(0.0f, -2.0f, 0.0f), glm::angleAxis(0.0f, glm::vec3(0.0f)),glm::vec3(5.0f, 0.05f, 5.0f), 1.0f));
 
         SimedObjects.emplace_back(cube1, box1, transform);
         SimedObjects.emplace_back(cube2, box2, transform);
+
         //renderloop
         while (!glfwWindowShouldClose(window)) {
 			const double now = glfwGetTime();

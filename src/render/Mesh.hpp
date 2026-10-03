@@ -20,11 +20,11 @@ public:
     void draw() const;
 
 private:
-    GLuint vao = 0;
-    GLuint positionVBO = 0;
-    GLuint normalVBO = 0;
-    GLuint ebo = 0;
-    GLsizei indexCount = 0;
+    GLuint  vao             = 0;
+    GLuint  positionVBO     = 0;
+    GLuint  normalVBO       = 0;
+    GLuint  ebo             = 0;
+    GLsizei indexCount      = 0;
 
     GLuint createAttribBuffer(GLuint location, const std::vector<glm::vec3>& data);
     GLuint createIndexBuffer(const std::vector<unsigned int>& indices);

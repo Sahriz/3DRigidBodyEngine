@@ -26,8 +26,8 @@ namespace rbe {
 
 		Body* getBody(BodyID id);
 	private:
-		std::vector<Body*> bodies;
-		glm::vec3 gravity;
-		rbe::BodyID index_amount;
+		std::vector<Body*>		bodies;
+		glm::vec3				gravity;
+		rbe::BodyID				index_amount;
 	};
 }
