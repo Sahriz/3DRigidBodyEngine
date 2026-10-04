@@ -61,6 +61,14 @@ namespace rbe {
 			shape		= BoxShape(s*0.5f);
 		}
 
+		glm::vec3 worldAabbHalfExtents(const glm::vec3& halfExtents, const glm::quat& rotation)
+		{
+			glm::mat3 R = glm::mat3_cast(glm::normalize(rotation));
+
+			return glm::abs(R[0]) * halfExtents.x
+				+ glm::abs(R[1]) * halfExtents.y
+				+ glm::abs(R[2]) * halfExtents.z;
+		}
 
 		void AddForce(const glm::vec3 f) 
 		{
@@ -68,16 +76,17 @@ namespace rbe {
 		}
 
 		bool overlaps(Body* const other) {
+			
 			const rbe::BoxShape* box = std::get_if<rbe::BoxShape>(&shape);
 			const rbe::BoxShape* otherBox = std::get_if<rbe::BoxShape>(&other->shape);
 
 			if (box && otherBox) {
-				glm::vec3 const& rotatedHalfA = box->halfExtents * rotation;
-				glm::vec3 const& rotatedHalfB = otherBox->halfExtents * other->rotation;
+				const glm::vec3 WAabbHalfExtents = worldAabbHalfExtents(box->halfExtents, rotation);
+				const glm::vec3 WAabbHalfExtentsOther = worldAabbHalfExtents(otherBox->halfExtents, other->rotation);
 
-				bool overlapX = std::abs(position.x - other->position.x) <= (rotatedHalfA.x + rotatedHalfB.x);
-				bool overlapY = std::abs(position.y - other->position.y) <= (rotatedHalfA.y + rotatedHalfB.y);
-				bool overlapZ = std::abs(position.z - other->position.z) <= (rotatedHalfA.z + rotatedHalfB.z);
+				bool overlapX = std::abs(position.x - other->position.x) <= (WAabbHalfExtents.x + WAabbHalfExtentsOther.x);
+				bool overlapY = std::abs(position.y - other->position.y) <= (WAabbHalfExtents.y + WAabbHalfExtentsOther.y);
+				bool overlapZ = std::abs(position.z - other->position.z) <= (WAabbHalfExtents.z + WAabbHalfExtentsOther.z);
 
 				return	overlapX && overlapY && overlapZ;
 			}
